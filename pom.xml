@@ -5,7 +5,7 @@
 
 	<groupId>com.cts</groupId>
 	<artifactId>task-mgr-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	
 	<packaging>pom</packaging>
 
 	<name>task-mgr-app</name>

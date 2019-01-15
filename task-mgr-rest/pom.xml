@@ -8,9 +8,8 @@
 		<artifactId>task-mgr-app</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.cts</groupId>
+	<groupId>com.cts.rest</groupId>
 	<artifactId>task-mgr-rest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>task-mgr-rest</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -62,6 +61,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>emma</groupId>
+			<artifactId>emma</artifactId>
+			<version>2.1.5320</version>
+		</dependency>
+
+		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java8</artifactId>
 			<version>${cucumber.version}</version>
@@ -104,6 +109,21 @@
 						<exclude>**/selenium/*.java</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<!-- emma code coverage for junit -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>emma-maven-plugin</artifactId>
+				<version>1.0-alpha-3</version>
+				<inherited>true</inherited>
+<!-- 				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>instrument</goal>
+						</goals>
+					</execution>
+				</executions> -->
 			</plugin>
 		</plugins>
 	</build>
