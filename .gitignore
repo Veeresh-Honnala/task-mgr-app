@@ -1,0 +1,52 @@
+.classpath
+.project
+.settings/
+/task-mgr-rest/target
+/task-mgr-rest/.settings
+/task-mgr-rest/.classpath
+/task-mgr-rest/.project
+
+
+# compiled output
+/task-mgr-ui/dist
+/task-mgr-ui/tmp
+/task-mgr-ui/out-tsc
+
+# dependencies
+/task-mgr-ui/node_modules
+
+# profiling files
+/chrome-profiler-events.json
+/speed-measure-plugin.json
+
+# IDEs and editors
+/task-mgr-ui/.idea
+/task-mgr-ui/.project
+/task-mgr-ui/.classpath
+/task-mgr-ui/.c9/
+/task-mgr-ui/*.launch
+/task-mgr-ui/.settings
+/task-mgr-ui/*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/task-mgr-ui/.sass-cache
+/task-mgr-ui/connect.lock
+/task-mgr-ui/package-lock.json
+/task-mgr-ui/coverage
+/task-mgr-ui/libpeerconnection.log
+/task-mgr-ui/npm-debug.log
+/task-mgr-ui/yarn-error.log
+/task-mgr-ui/testem.log
+/task-mgr-ui/typings
+
+# System Files
+/task-mgr-ui/.DS_Store
+/task-mgr-ui/Thumbs.db
+/task-mgr-ui/target
