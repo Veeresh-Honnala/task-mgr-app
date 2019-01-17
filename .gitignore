@@ -1,10 +1,10 @@
 .classpath
-.project
+# .project
 .settings/
 /task-mgr-rest/target
 /task-mgr-rest/.settings
 /task-mgr-rest/.classpath
-/task-mgr-rest/.project
+# /task-mgr-rest/.project
 
 
 # compiled output
@@ -21,7 +21,7 @@
 
 # IDEs and editors
 /task-mgr-ui/.idea
-/task-mgr-ui/.project
+# /task-mgr-ui/.project
 /task-mgr-ui/.classpath
 /task-mgr-ui/.c9/
 /task-mgr-ui/*.launch
