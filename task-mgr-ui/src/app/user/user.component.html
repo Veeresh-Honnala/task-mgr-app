@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>ADD USER</h2>
+ <form  #userForm="ngForm">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input type="text" class="form-control" id="firstName"
+           required
+           [(ngModel)]="user.firstName" name="firstName"
+           #firstName="ngModel">
+    <div [hidden]="firstName.valid || firstName.pristine"
+         class="alert alert-danger">
+      First Name is required
+    </div>
+  </div>
+</form> 
+</div>
