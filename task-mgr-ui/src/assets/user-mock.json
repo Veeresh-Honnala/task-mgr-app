@@ -1,0 +1,28 @@
+{
+    "outData": [
+        {
+            "userId": "1",
+            "firstName": "Veeresh",
+            "lastName": "Honnala",
+            "empId": "ve001"
+        },
+        {
+            "userId": "2",
+            "firstName": "Raju",
+            "lastName": "Kummari",
+            "empId": "ku001"
+        },
+        {
+            "userId": "3",
+            "firstName": "Anji",
+            "lastName": "Boya",
+            "empId": "Aj001"
+        },
+        {
+            "userId": "4",
+            "firstName": "Koulu",
+            "lastName": "Kurava",
+            "empId": "Ko001"
+        }
+    ]
+}

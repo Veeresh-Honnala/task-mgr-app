@@ -13,4 +13,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
   }
 
+  resetUser(){
+    this.user= new User('','','');
+  }
 }
