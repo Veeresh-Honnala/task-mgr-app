@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './user';
+import { UserModel } from '../shared/model/user.model';
+import { UserService } from '../shared/services/user.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -7,13 +8,24 @@ import { User } from './user';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
-  user:User= new User('','','');
+  constructor(private userService: UserService) { }
+  user: UserModel = new UserModel();
+  users: UserModel[];
 
   ngOnInit() {
+    this.getUsers();
   }
 
-  resetUser(){
-    this.user= new User('','','');
+  public getUsers() {
+    this.userService.getUsers().subscribe(res =>
+      this.users = res.outData
+    );
+  }
+
+  public updateUser(i){
+    this.user = this.users[i];
+  }
+  resetUser() {
+    this.user = new UserModel('', '', '');
   }
 }

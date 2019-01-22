@@ -1,4 +1,4 @@
-<div>
+<div id="addUser">
   <form #userForm="ngForm">
     <div class="form-group required row">
       <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>
@@ -38,5 +38,11 @@
     </div>
   </form>
 </div>
-<hr size="pixels" class="line"/>
-
+<hr size="pixels" class="line" />
+<div id="getUsers">
+  <ul class="list-group" *ngFor="let usr of users;let i = index">
+    <li class="list-group-item"> <b>First Name :</b> {{usr.firstName}}<input type="button" id="{{i}}" class="btn btn-info float-right" (click)="updateUser(i)" value="update"></li>
+    <li class="list-group-item"><b>Last Name :</b>{{usr.lastName}} <input type="button" id="{{i}}" class="btn btn-info float-right" (click)="deleteUser(i)" value="delete"></li>
+    <li class="list-group-item"><b>Employee ID :</b>{{usr.empId}} </li><br/>
+  </ul>
+</div>
