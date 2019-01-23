@@ -9,11 +9,15 @@ import { UserComponent } from './user/user.component';
 
 //services
 import { UserService } from './shared/services/user.service';
+import { SortPipe } from './user/user-pipes/sort.pipe';
+import { UserSerachPipe } from './user/user-pipes/user-serach.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    UserComponent,
+    SortPipe,
+    UserSerachPipe
   ],
   imports: [
     BrowserModule,
