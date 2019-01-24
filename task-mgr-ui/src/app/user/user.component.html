@@ -33,16 +33,36 @@
       <div class="col-sm-2"></div>
       <div class="col-sm-6">
         <input type="button" id="reset" class="btn btn-info float-right" (click)="userForm.reset()" value="Reset">
-        <input type="button" id="add" class="btn btn-info float-right mg-15" [disabled]="!userForm.form.valid" value="Add User">
+        <div *ngIf="isAddButton">
+          <input type="button" id="add" class="btn btn-info float-right mg-15" [disabled]="!userForm.form.valid" value="Add User">
+        </div>
+        <div *ngIf="!isAddButton">
+          <input type="button" id="update" class="btn btn-info float-right mg-15" [disabled]="!userForm.form.valid"
+            value="Update User">
+        </div>
       </div>
     </div>
   </form>
 </div>
+
 <hr size="pixels" class="line" />
 <div id="getUsers">
-  <ul class="list-group" *ngFor="let usr of users;let i = index">
-    <li class="list-group-item"> <b>First Name :</b> {{usr.firstName}}<input type="button" id="{{i}}" class="btn btn-info float-right" (click)="updateUser(i)" value="update"></li>
-    <li class="list-group-item"><b>Last Name :</b>{{usr.lastName}} <input type="button" id="{{i}}" class="btn btn-info float-right" (click)="deleteUser(i)" value="delete"></li>
-    <li class="list-group-item"><b>Employee ID :</b>{{usr.empId}} </li><br/>
+  <div class="form-group required row">
+    <div class="col-sm-3">
+      <input type="text" class="form-control" placeholder="search" id="search" required [(ngModel)]="user.empId" name="empId" #empId="ngModel">
+    </div>
+    <div class="col-sm-6">
+        <input type="button" id="id" class="btn btn-info float-right mg-15" (click)="sortUser('empId')" value="Id">
+        <input type="button" id="lName" class="btn btn-info float-right mg-15" (click)="sortUser('lastName')" value="Last Name">
+        <input type="button" id="fName" class="btn btn-info float-right mg-15" (click)="sortUser('firstName')" value="First Name">
+      </div>
+  </div>
+  <ul class="list-group" *ngFor="let usr of users | sort:sortFieldName;let i = index">
+    <li class="list-group-item"> <b>First Name :</b> {{usr.firstName}}<input type="button" id="{{i}}" class="btn btn-info float-right"
+        (click)="loadUser(i)" value="update"></li>
+    <li class="list-group-item"><b>Last Name :</b>{{usr.lastName}} <input type="button" id="{{i}}" class="btn btn-info float-right"
+        (click)="deleteUser(i)" value="delete"></li>
+    <li class="list-group-item"><b>Employee ID :</b>{{usr.empId}} </li>
+    <hr />
   </ul>
 </div>
