@@ -2,6 +2,7 @@
 import { ParentTaskModel } from "./parent-task.model";
 export class TaskModel{
     taskId:string;
+    project:string;
     taskName:string;
     priority:string;
     parentTask:ParentTaskModel;

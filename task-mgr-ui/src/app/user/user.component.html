@@ -49,7 +49,7 @@
 <div id="getUsers">
   <div class="form-group required row">
     <div class="col-sm-3">
-      <input type="text" class="form-control" placeholder="search" id="search" required [(ngModel)]="user.empId" name="empId" #empId="ngModel">
+      <input type="text" class="form-control" placeholder="search" id="search" required [(ngModel)]="searchEmpId" name="empId" #empId="ngModel">
     </div>
     <div class="col-sm-6">
         <input type="button" id="id" class="btn btn-info float-right mg-15" (click)="sortUser('empId')" value="Id">
@@ -57,7 +57,7 @@
         <input type="button" id="fName" class="btn btn-info float-right mg-15" (click)="sortUser('firstName')" value="First Name">
       </div>
   </div>
-  <ul class="list-group" *ngFor="let usr of users | sort:sortFieldName;let i = index">
+  <ul class="list-group" *ngFor="let usr of users | userSerach:searchEmpId |sort:sortFieldName;let i = index">
     <li class="list-group-item"> <b>First Name :</b> {{usr.firstName}}<input type="button" id="{{i}}" class="btn btn-info float-right"
         (click)="loadUser(i)" value="update"></li>
     <li class="list-group-item"><b>Last Name :</b>{{usr.lastName}} <input type="button" id="{{i}}" class="btn btn-info float-right"

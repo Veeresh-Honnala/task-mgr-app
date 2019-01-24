@@ -8,7 +8,7 @@ import { UserService } from '../shared/services/user.service';
 })
 export class UserComponent implements OnInit {
   private isAddButton:boolean=true;
-  filterUser:string; 
+  searchEmpId:string; 
   sortFieldName:string='firstName'; 
 
   constructor(private userService: UserService) { }
