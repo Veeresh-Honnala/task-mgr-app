@@ -4,6 +4,8 @@
 /task-mgr-rest/target
 /task-mgr-rest/.settings
 /task-mgr-rest/.classpath
+/task-mgr-ui/bin/
+/bin
 # /task-mgr-rest/.project
 
 
@@ -50,4 +52,5 @@
 /task-mgr-ui/.DS_Store
 /task-mgr-ui/Thumbs.db
 /task-mgr-ui/target
-/bin/
+/task-mgr-ui/bin
+/bin
