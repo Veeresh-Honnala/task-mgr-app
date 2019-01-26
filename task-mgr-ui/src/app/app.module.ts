@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
+//third party modules.
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 //components
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
@@ -14,6 +17,7 @@ import { ProjectComponent } from './project/project.component';
 //services
 import { UserService } from './shared/services/user.service';
 import { ProjectService } from './shared/services/project.service';
+import { TaskService } from './shared/services/task.service';
 
 //pipes
 import { SortPipe } from './user/user-pipes/sort.pipe';
@@ -34,10 +38,12 @@ import { UserSerachPipe } from './user/user-pipes/user-serach.pipe';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
     AppRoutingModule
   ],
   providers: [UserService,
-    ProjectService],
+    ProjectService,
+    TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
