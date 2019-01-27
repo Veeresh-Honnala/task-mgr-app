@@ -11,8 +11,10 @@ export class TaskModel{
     startDate:string;
     endDate:string;
     user:UserModel;
+    isParent:boolean;
     editEnabled:string;
     // below fields are used for filtering data
     priorityFrom:number;
     priorityTo:number;
+
 }

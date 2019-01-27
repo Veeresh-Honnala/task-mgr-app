@@ -1,10 +1,13 @@
+import { UserModel } from './user.model';
+
 export class ProjectModel{
-    ProjectModel(
-        projectId?:number,
-        project?:string,
-        priority?:number,
-        manager?:string,
-        startDate?:Date,
-        endDate?:Date
+    constructor(
+        public projectId?:number,
+        public project?:string,
+        public priority?:number,
+        public manager?:string,
+        public hasDates?:boolean,
+        public startDate?:Date,
+        public endDate?:Date
     ){}
 }

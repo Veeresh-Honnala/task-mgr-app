@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 export class TaskManagerConstants{
     public static RUN_WITH_MOCK:boolean =true;
+
     public static GET_USERS_MOCK:string='../../../assets/user-mock.json';
     public static GET_USERS:string='/api/taskmanager/getUsers';
     public static SEARCH_USERS:string='/api/taskmanager/searchUsers';
@@ -13,8 +14,12 @@ export class TaskManagerConstants{
     public static GET_PROJECTS:string='/api/taskmanager/getProjects';
     public static SEARCH_PROJECT:string='/api/taskmanager/searchProjects';
 
-    public static SEARCH_PARENT_TASK:string='/api/taskmanager/searchParentTasks';
+    
     public static SEARCH_PARENT_TASK_MOCK:string='../../../assets/parent-task-mock.json';
+    public static GET_TASKS_MOCK:string= '../../assets/task-mock.json';
+    public static SEARCH_PARENT_TASK:string='/api/taskmanager/searchParentTasks';
+    public static SAVE_TASK:string='/api/taskmanager/saveTask';
+    public static GET_TASKS:string='/api/taskmanager/getTasks';
 
     
     public static GET_PROJECT:string='/api/taskmanager/getProject';

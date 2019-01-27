@@ -22,6 +22,7 @@ import { TaskService } from './shared/services/task.service';
 //pipes
 import { SortPipe } from './user/user-pipes/sort.pipe';
 import { UserSerachPipe } from './user/user-pipes/user-serach.pipe';
+import { ViewTaskProjectPipe } from './view-task/view-task-pipes/view-task-project.pipe';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { UserSerachPipe } from './user/user-pipes/user-serach.pipe';
     UserSerachPipe,
     AddTaskComponent,
     ViewTaskComponent,
-    ProjectComponent
+    ProjectComponent,
+    ViewTaskProjectPipe
   ],
   imports: [
     BrowserModule,

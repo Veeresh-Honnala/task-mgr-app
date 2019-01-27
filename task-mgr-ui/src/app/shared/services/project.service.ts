@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TaskManagerConstants } from '../constants/taskmanager.constants';
 import { ResponseModel } from '../model/response.model';
 import { ProjectModel } from '../model/project.model';
@@ -7,6 +7,9 @@ import { UserService } from './user.service';
 
 import { tap, catchError, map } from 'rxjs/operators'
 import { Observable, of } from 'rxjs';
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +31,37 @@ export class ProjectService {
       );
     } else {
       return null;
+    }
+  }
+
+  public getProjects(): Observable<any> {
+    if (TaskManagerConstants.RUN_WITH_MOCK == true) {
+      return this.httpClient.get(TaskManagerConstants.GET_PROJECTS_MOCK).pipe(
+        map((res:ResponseModel<ProjectModel[]>) => {
+          return res.outData;
+        })
+      );
+    } else {
+      return  this.httpClient.post(TaskManagerConstants.GET_PROJECTS,httpOptions).pipe(
+        map((res:ResponseModel<ProjectModel[]>) => {
+          return res.outData;
+        })
+      );
+    }
+  }
+  public saveOrUpdateProject(): Observable<any> {
+    if (TaskManagerConstants.RUN_WITH_MOCK == true) {
+      return this.httpClient.get(TaskManagerConstants.GET_PROJECTS_MOCK).pipe(
+        map((res:ResponseModel<ProjectModel[]>) => {
+          return res.outData;
+        })
+      );
+    } else {
+      return  this.httpClient.post(TaskManagerConstants.GET_PROJECTS,httpOptions).pipe(
+        map((res:ResponseModel<ProjectModel[]>) => {
+          return res.outData;
+        })
+      );
     }
   }
 

@@ -17,11 +17,13 @@ export class AddTaskComponent implements OnInit {
   task: TaskModel;
   searching = false;
   searchFailed = false;
-  modal:any;
+  disableForParent=false;
+
   constructor(private projectService:ProjectService,private userService:UserService,
     private taskService:TaskService) { 
     this.task=new TaskModel();
     this.task.priority='0';
+    this.task.isParent=false;
     this.task.parentTask= new ParentTaskModel();
     this.task.user= new UserModel();
     this.task.project= new ProjectModel();
@@ -84,5 +86,9 @@ export class AddTaskComponent implements OnInit {
       ),
       tap(() => this.searching = false)
     );
+
+    public disableParent(){
+      this.disableForParent=!this.disableForParent;
+    }
 
 }
