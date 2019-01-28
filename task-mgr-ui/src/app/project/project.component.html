@@ -65,24 +65,44 @@
 </div>
 <hr size="pixels" class="line" />
 <div id="view-projects">
-  <div class="list-group" *ngFor="let p of projectModels;let i=index;">
-    <div class="card">
-      <div class="card-body" id="project{{i}}">
-        <div class="row">
-          <div class="col-sm-4">
+  <div class="list-group col-sm-10" *ngFor="let p of projectModels;let i=index;">
+    <div class="list-group-item">
+      <div class="row">
+        <div class="well col-sm-6" style="background-color: #a9a9a92e;margin-right:5px; ">
+          <!-- <div class="card-body"> -->
+          <br />
+          <div class="list-group-item-header">
             <div>Project : {{p.project}}</div>
-            <div>No of Tasks: Completed:</div>
-            <div>Start Date:{{p.startDate}} End Date:{{p.endDate}}</div>
           </div>
-          <div class="col-sm-2">Priority : {{p.priority}}
+          <br />
+          <div class="list-group-item-text row">
+            <div class="col-sm-6"> No of Tasks: 10</div>
+            <div class="col-sm-6"> Completed: 20</div>
           </div>
-          <div class="col-sm-2">
-              <div class="form-group">
-                  <button type="button" id="add" class="btn  btn-info"  style="margin:10px">Update</button>
-                  <button type="button" id="reset" class="btn  btn-info" style="margin:10px" >Suspend</button>
-                </div>
-            
+          <div class="list-group-item-text row">
+            <div class="col-sm-6"> Start Date:{{p.startDate}}</div>
+            <div class="col-sm-6"> End Date:{{p.endDate}}</div>
           </div>
+          <!-- </div> -->
+        </div>
+
+        <div class="well col-sm-3" style="background-color: #a9a9a92e;margin-right:5px;">
+          <div class="list-group-item-header">
+            <br />
+            <div>Priority</div>
+          </div>
+          <div>{{p.priority}}</div>
+        </div>
+        <div class="well col-sm-2" style="background-color: #a9a9a92e">
+          <!-- <div class="card-body"> -->
+          <br />
+          <div class="form-group col-md-1">
+            <button type="button" class="btn1">Update</button>
+          </div>
+          <div class="form-group col-md-1">
+            <button type="button" class="btn2">Suspend</button>
+          </div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
