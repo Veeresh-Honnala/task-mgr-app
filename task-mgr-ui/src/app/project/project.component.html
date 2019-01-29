@@ -18,16 +18,16 @@
       <div class="col-sm-3">
         <input type="date" name="startDate" class="form-control" placeholder="DD/MM/YYYY" id="startDate" [disabled]="!projectModel.hasDates"
           [(ngModel)]="projectModel.startDate" #startDate="ngModel">
-        <div [hidden]="!projectModel.hasDates && (startDate.valid || startDate.pristine)" class="alert alert-danger">
+        <!-- <div [hidden]="!projectModel.hasDates && (startDate.valid || startDate.pristine)" class="alert alert-danger">
           Start Date is Required
-        </div>
+        </div> -->
       </div>
       <div class="col-sm-3">
         <input type="date" name="endDate" class="form-control" placeholder="DD/MM/YYYY" id="endDate" [disabled]="!projectModel.hasDates"
           [(ngModel)]="projectModel.endDate" #endDate="ngModel">
-        <div [hidden]="(endDate.valid || endDate.pristine)" class="alert alert-danger">
+        <!-- <div [hidden]="(endDate.valid || endDate.pristine)" class="alert alert-danger">
           End Date is Required
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="form-group required row">
@@ -55,9 +55,14 @@
 
     <div class="form-group row">
       <div class="col-sm-3"></div>
-      <button type="button" id="add" class="btn  btn-info" [disabled]="!addProject.form.valid" style="margin:10px"
-        (click)="saveProject()">Add
-      </button>
+      <div *ngIf="updateProj">
+        <button type="button" id="add" class="btn  btn-info" [disabled]="!addProject.form.valid" style="margin:10px"
+          (click)="saveProject()">Add</button>
+      </div>
+      <div *ngIf="!updateProj">
+        <button type="button" id="add" class="btn  btn-info" [disabled]="!addProject.form.valid" style="margin:10px"
+          (click)="update()">Update</button>
+      </div>
       <button type="button" id="reset" class="btn  btn-info" style="margin:10px" (click)="addProject.reset()">Reset</button>
       <div class="col-sm-2"></div>
     </div>
@@ -68,7 +73,7 @@
   <div class="list-group col-sm-10" *ngFor="let p of projectModels;let i=index;">
     <div class="list-group-item">
       <div class="row">
-        <div class="well col-sm-6" style="background-color: #a9a9a92e;margin-right:5px; ">
+        <div class="col-sm-6" style="background-color: #a9a9a92e;margin-right:5px; ">
           <!-- <div class="card-body"> -->
           <br />
           <div class="list-group-item-header">
@@ -86,21 +91,21 @@
           <!-- </div> -->
         </div>
 
-        <div class="well col-sm-3" style="background-color: #a9a9a92e;margin-right:5px;">
+        <div class="col-sm-3" style="background-color: #a9a9a92e;margin-right:5px;">
           <div class="list-group-item-header">
             <br />
             <div>Priority</div>
           </div>
           <div>{{p.priority}}</div>
         </div>
-        <div class="well col-sm-2" style="background-color: #a9a9a92e">
+        <div class="col-sm-2" style="background-color: #a9a9a92e">
           <!-- <div class="card-body"> -->
           <br />
           <div class="form-group col-md-1">
-            <button type="button" class="btn1">Update</button>
+            <button type="button" class="btn1" (click)="updateProject(i)">Update</button>
           </div>
           <div class="form-group col-md-1">
-            <button type="button" class="btn2">Suspend</button>
+            <button type="button" class="btn2" (click)="suspendProject(i)">Suspend</button>
           </div>
           <!-- </div> -->
         </div>

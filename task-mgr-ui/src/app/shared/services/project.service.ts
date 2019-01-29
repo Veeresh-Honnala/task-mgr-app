@@ -19,14 +19,14 @@ export class ProjectService {
   constructor(private httpClient: HttpClient, private userService: UserService) { }
 
   public searchProjects(term: string): Observable<any> {
-    console.log('term => '+term)
+    console.log('term => ' + term)
     if (term === '') {
       return of([]);
     }
     if (TaskManagerConstants.RUN_WITH_MOCK == true) {
       return this.httpClient.get(TaskManagerConstants.GET_PROJECTS_MOCK).pipe(
-        map((res:ResponseModel<ProjectModel[]>) => {
-          return res.outData.map(p=>p['project']+'-'+p['projectId']);
+        map((res: ResponseModel<ProjectModel[]>) => {
+          return res.outData.map(p => p['project'] + '-' + p['projectId']);
         })
       );
     } else {
@@ -37,29 +37,30 @@ export class ProjectService {
   public getProjects(): Observable<any> {
     if (TaskManagerConstants.RUN_WITH_MOCK == true) {
       return this.httpClient.get(TaskManagerConstants.GET_PROJECTS_MOCK).pipe(
-        map((res:ResponseModel<ProjectModel[]>) => {
+        map((res: ResponseModel<ProjectModel[]>) => {
           return res.outData;
         })
       );
     } else {
-      return  this.httpClient.post(TaskManagerConstants.GET_PROJECTS,httpOptions).pipe(
-        map((res:ResponseModel<ProjectModel[]>) => {
+      return this.httpClient.post(TaskManagerConstants.GET_PROJECTS, httpOptions).pipe(
+        map((res: ResponseModel<ProjectModel[]>) => {
           return res.outData;
         })
       );
     }
   }
-  public saveOrUpdateProject(): Observable<any> {
+
+  public saveOrUpdateProject(projectModel: ProjectModel): Observable<any> {
     if (TaskManagerConstants.RUN_WITH_MOCK == true) {
-      return this.httpClient.get(TaskManagerConstants.GET_PROJECTS_MOCK).pipe(
-        map((res:ResponseModel<ProjectModel[]>) => {
-          return res.outData;
-        })
-      );
+      let res = new ResponseModel<string>();
+      res.errCode = '0';
+      res.outData = 'Success';
+      res.status = 'Success';
+      return of(res);
     } else {
-      return  this.httpClient.post(TaskManagerConstants.GET_PROJECTS,httpOptions).pipe(
-        map((res:ResponseModel<ProjectModel[]>) => {
-          return res.outData;
+      return this.httpClient.post(TaskManagerConstants.SAVE_PROJECT, projectModel, httpOptions).pipe(
+        map((res: ResponseModel<ProjectModel[]>) => {
+          return res;
         })
       );
     }

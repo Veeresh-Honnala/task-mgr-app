@@ -8,6 +8,7 @@ export class ProjectModel{
         public manager?:string,
         public hasDates?:boolean,
         public startDate?:Date,
-        public endDate?:Date
+        public endDate?:Date,
+        public suspended?:string
     ){}
 }
