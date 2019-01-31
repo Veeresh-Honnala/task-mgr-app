@@ -1,6 +1,5 @@
 package com.cts.rest.controller;
 
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,12 +8,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cts.rest.constants.TaskManagerConstants;
 import com.cts.rest.model.Responce;
-import com.cts.rest.model.Task;
+import com.cts.rest.model.User;
 import com.cts.rest.service.TaskManagerService;
 
 @RestController
@@ -30,6 +27,21 @@ public class TaskManagerController {
 		return new Responce<String>("Success","Success","0");
 	}
 	
+	@GetMapping(path = "/saveOrUpdateUser", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Responce<String> saveOrUpdateUser(@RequestBody User user) {
+		LOGGER.info("saveOrUpdateUser Start");
+		Responce<String> response;
+		try {
+			User user1 =taskManagerService.saveUser(user);
+			response= new Responce<String>(user1.getUserId(),"Success","0");
+		}catch(Exception e) {
+			 LOGGER.error("Exception while persisting User data : "+e.toString());
+			 response= new Responce<String>(null,"Failure","1");
+			 response.setErrMsg(e.getMessage());
+		}	
+		LOGGER.info("saveOrUpdateUser End");
+		return response;
+	}
 
 
 }
