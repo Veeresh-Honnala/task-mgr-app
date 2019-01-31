@@ -18,7 +18,7 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
 
   public getUsers(): Observable<any> {
-    if (TaskManagerConstants.RUN_WITH_MOCK = true) {
+    if (TaskManagerConstants.RUN_WITH_MOCK) {
       return this.httpClient.get(TaskManagerConstants.GET_USERS_MOCK).pipe(
         tap((res: ResponseModel<UserModel>) => console.log(`get users w/ id=${res.status}`)),
         catchError(this.handleError<UserModel>('getUsers')));
@@ -28,7 +28,7 @@ export class UserService {
   }
 
   public saveOrUpdateUser(user: UserModel): any {
-    if (TaskManagerConstants.RUN_WITH_MOCK = true) {
+    if (TaskManagerConstants.RUN_WITH_MOCK) {
       let res = new ResponseModel<string>();
       res.errCode = '0';
       res.outData = 'Success';
@@ -46,7 +46,7 @@ export class UserService {
     if (term === '') {
       return of([]);
     }
-    if (TaskManagerConstants.RUN_WITH_MOCK == true) {
+    if (TaskManagerConstants.RUN_WITH_MOCK) {
       return this.httpClient.get(TaskManagerConstants.GET_USERS_MOCK).pipe(
         map((res: ResponseModel<UserModel[]>) => {
           return res.outData.map(u => u['firstName'] + ' ' + u['lastName'] + '-'+u['userId']);

@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.rest.model.Responce;
@@ -15,7 +16,7 @@ import com.cts.rest.model.User;
 import com.cts.rest.service.TaskManagerService;
 
 @RestController
-@RequestMapping(path="/api/taskmanager")
+@RequestMapping(path="/api/projectmanager")
 public class TaskManagerController {
 	public static final Logger LOGGER = LoggerFactory.getLogger(TaskManagerController.class);
 	@Autowired
@@ -27,7 +28,7 @@ public class TaskManagerController {
 		return new Responce<String>("Success","Success","0");
 	}
 	
-	@GetMapping(path = "/saveOrUpdateUser", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path = "/saveOrUpdateUser",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
 	public Responce<String> saveOrUpdateUser(@RequestBody User user) {
 		LOGGER.info("saveOrUpdateUser Start");
 		Responce<String> response;
@@ -42,6 +43,4 @@ public class TaskManagerController {
 		LOGGER.info("saveOrUpdateUser End");
 		return response;
 	}
-
-
 }

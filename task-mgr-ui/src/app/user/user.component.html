@@ -34,10 +34,10 @@
       <div class="col-sm-6">
         <input type="button" id="reset" class="btn btn-info float-right" (click)="userForm.reset()" value="Reset">
         <div *ngIf="isAddButton">
-          <input type="button" id="add" class="btn btn-info float-right mg-15" [disabled]="!userForm.form.valid" value="Add User">
+          <input type="button" id="add" class="btn btn-info float-right mg-15" [disabled]="!userForm.form.valid" (click)="saveUser()" value="Add User">
         </div>
         <div *ngIf="!isAddButton">
-          <input type="button" id="update" class="btn btn-info float-right mg-15" [disabled]="!userForm.form.valid"
+          <input type="button" id="update" class="btn btn-info float-right mg-15" [disabled]="!userForm.form.valid" (click)="updateUser()"
             value="Update User">
         </div>
       </div>

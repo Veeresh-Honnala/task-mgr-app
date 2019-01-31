@@ -27,6 +27,12 @@ public class TaskTest {
 		task.getParentTask();
 		task.setTaskName("t1");
 		task.getTaskName();
+		task.setEditEnabled("");
+		task.getEditEnabled();
+		task.setPriority("");
+		task.getPriority();
+		task.setStartDate(null);
+		task.getStartDate();
 	}
 	
 	@AfterClass

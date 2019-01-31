@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 public class User {
 	
 	@Column(name="user_id")
+	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String userId;
 
@@ -19,10 +21,10 @@ public class User {
 	@Column(name="last_name")
 	private String lastName;
 	@Column(name="employee_id")
-	private String employeeId;
-	@Column(name="project_id",nullable=true)
+	private String empId;
+	@Column(name="project_id")
 	private String projectId;
-	@Column(name="task_id",nullable=true)
+	@Column(name="task_id")
 	private String taskId;
 
 	public String getUserId() {
@@ -49,12 +51,12 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getEmployeeId() {
-		return employeeId;
+	public String getEmpId() {
+		return empId;
 	}
 
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployeeId(String empId) {
+		this.empId = empId;
 	}
 
 	public String getProjectId() {
