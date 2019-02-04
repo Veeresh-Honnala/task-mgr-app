@@ -65,7 +65,7 @@ export class ProjectComponent implements OnInit {
   public saveProject() {
     this.projectService.saveOrUpdateProject(this.projectModel).subscribe(
       (res) => {
-        console.log('--');
+        this.projectModels.push(this.projectModel);
       }
     );
   }

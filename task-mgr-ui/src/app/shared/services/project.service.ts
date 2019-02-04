@@ -51,13 +51,18 @@ export class ProjectService {
   }
 
   public saveOrUpdateProject(projectModel: ProjectModel): Observable<any> {
-    if (TaskManagerConstants.RUN_WITH_MOCK == true) {
+    // projectModel.manager= 
+    
+    if (TaskManagerConstants.RUN_WITH_MOCK) {
       let res = new ResponseModel<string>();
       res.errCode = '0';
       res.outData = 'Success';
       res.status = 'Success';
       return of(res);
     } else {
+      projectModel.managerId=  parseInt(projectModel.manager.split('-')[1]);
+      projectModel.suspended='N';
+      console.log(projectModel);
       return this.httpClient.post(TaskManagerConstants.SAVE_PROJECT, projectModel, httpOptions).pipe(
         map((res: ResponseModel<ProjectModel[]>) => {
           return res;

@@ -27,8 +27,11 @@ create table project(
    project_id INT NOT NULL AUTO_INCREMENT,
    project VARCHAR(100) NOT NULL,
    priority VARCHAR(100) NOT NULL,
+   has_dates BOOLEAN,
    start_date DATE,
    end_date DATE,
+   suspended VARCHAR(3) NOT NULL,
+   manager_id INT,
    PRIMARY KEY (project_id)
 );
 

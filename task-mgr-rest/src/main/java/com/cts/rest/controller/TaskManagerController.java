@@ -1,6 +1,8 @@
 package com.cts.rest.controller;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.rest.model.Project;
 import com.cts.rest.model.Responce;
 import com.cts.rest.model.User;
 import com.cts.rest.service.TaskManagerService;
@@ -41,6 +44,54 @@ public class TaskManagerController {
 			 response.setErrMsg(e.getMessage());
 		}	
 		LOGGER.info("saveOrUpdateUser End");
+		return response;
+	}
+	
+	@RequestMapping(path = "/saveOrUpdateProject",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public Responce<Integer> saveOrUpdateProject(@RequestBody Project project) {
+		LOGGER.info("saveOrUpdateProject Start");
+		Responce<Integer> response;
+		try {
+			Project project1 =taskManagerService.saveProject(project);
+			response= new Responce<>(project1.getProjectId(),"Success","0");
+		}catch(Exception e) {
+			 LOGGER.error("Exception while persisting Project data : ",e);
+			 response= new Responce<>(null,"Failure","1");
+			 response.setErrMsg(e.getMessage());
+		}	
+		LOGGER.info("saveOrUpdateProject End");
+		return response;
+	}
+	
+	@RequestMapping(path = "/getProjects",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public Responce<List<Project>> getProjects() {
+		LOGGER.info("getProjects Start");
+		Responce<List<Project>> response;
+		try {
+			List<Project> projects =taskManagerService.getProjects();
+			response= new Responce<>(projects,"Success","0");
+		}catch(Exception e) {
+			 LOGGER.error("Exception while fetching Project data : ",e);
+			 response= new Responce<>(null,"Failure","1");
+			 response.setErrMsg(e.getMessage());
+		}	
+		LOGGER.info("getProjects End");
+		return response;
+	}
+	
+	@RequestMapping(path = "/findProjectsByName",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public Responce<List<Project>> findProjectsByName() {
+		LOGGER.info("findProjectsByName Start");
+		Responce<List<Project>> response;
+		try {
+			List<Project> projects =taskManagerService.getProjects();
+			response= new Responce<>(projects,"Success","0");
+		}catch(Exception e) {
+			 LOGGER.error("Exception while fetching Project data : ",e);
+			 response= new Responce<>(null,"Failure","1");
+			 response.setErrMsg(e.getMessage());
+		}	
+		LOGGER.info("findProjectsByName End");
 		return response;
 	}
 }
