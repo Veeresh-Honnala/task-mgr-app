@@ -21,8 +21,8 @@ try{
 	   	  }
 	    	
 	  stage('archive') {
-                sh 'make' 
-                archiveArtifacts artifacts: '**/', fingerprint: true 
+                
+                archiveArtifacts artifacts: '**/target/**', fingerprint: true 
         }
       
 	
