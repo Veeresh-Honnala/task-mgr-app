@@ -19,8 +19,6 @@ try{
 	   	  sh 'mvn clean package -Dspring.profiles.active=docker -Dmaven.test.skip'		
 	   	  echo "clean package end"
 	   	  }
-	    
-      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'tma-reports', reportFiles: 'index.html', reportName: 'tma-report', reportTitles: 'title1,title2,']);
 	    	
 	  post {
         archiveArtifacts artifacts: '', fingerprint: true	
