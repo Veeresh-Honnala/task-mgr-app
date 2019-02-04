@@ -5,8 +5,6 @@ try{
    
 	node('master') {
 	
-	stages{
-	
 	   stage ('Checkout'){
 	   
 	       echo "check out start"
@@ -26,11 +24,10 @@ try{
 	    
          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'tma-reports', reportFiles: 'index.html', reportName: 'tma-report', reportTitles: 'title1,title2,']);
 	    	
-	  
-	}
-	post {
+	  post {
         archiveArtifacts artifacts: '', fingerprint: true	
     }
+	
 	}	
 	
 
