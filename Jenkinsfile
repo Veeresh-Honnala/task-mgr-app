@@ -18,14 +18,16 @@ try{
 	   	  }
 	  
 	  stage('archive') {
+	            echo "archive start"
                 archiveArtifacts artifacts: '**/target/**', fingerprint: true 
+                echo "archive end"
         }
 	   	  
 	  stage('Clean Package'){
 	   	  echo "clean package start"
 	   	  sh 'mvn clean package -Dspring.profiles.active=docker -Dmaven.test.skip'		
 	   	  echo "clean package end"
-	   	  }
+	   	}
 	    	
 	  
       
