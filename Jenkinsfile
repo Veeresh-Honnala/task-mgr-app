@@ -26,14 +26,7 @@ try{
 	    
          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'tma-reports', reportFiles: 'index.html', reportName: 'tma-report', reportTitles: 'title1,title2,']);
 	    	
-	  /*    mail subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) Success",
-         body: "It appears that ${env.BUILD_URL} Successfull",
-         to: 'kumar.hv3@gmail.com',
-         replyTo: 'kumar.hv3@gmail.com',
-         from: 'kumar.hv3@gmail.com' */
-	    
-	    
-	
+	  
 	}
 	post {
         archiveArtifacts artifacts: '', fingerprint: true	
