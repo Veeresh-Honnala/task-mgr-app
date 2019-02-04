@@ -4,29 +4,27 @@
 try{
    
 	node('master') {
-	
-	   stage ('Checkout'){
-	   
+	  stage ('Checkout'){
 	       echo "check out start"
 		   checkout scm
 	       echo "check out end"
 	     }
-	   stage('Clean Test'){
+	  stage('Clean Test'){
 	   	  echo "clean test start"
 	   	  sh 'mvn clean test -Pdev'		
 	   	  echo "clean test end"
 	   	  }
-	   stage('Clean Package'){
+	  stage('Clean Package'){
 	   	  echo "clean package start"
 	   	  sh 'mvn clean package -Dspring.profiles.active=docker -Dmaven.test.skip'		
 	   	  echo "clean package end"
 	   	  }
 	    
-         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'tma-reports', reportFiles: 'index.html', reportName: 'tma-report', reportTitles: 'title1,title2,']);
+      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'tma-reports', reportFiles: 'index.html', reportName: 'tma-report', reportTitles: 'title1,title2,']);
 	    	
 	  post {
         archiveArtifacts artifacts: '', fingerprint: true	
-    }
+      }
 	
 	}	
 	
