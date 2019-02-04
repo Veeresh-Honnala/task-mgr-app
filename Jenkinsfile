@@ -20,9 +20,11 @@ try{
 	   	  echo "clean package end"
 	   	  }
 	    	
-	  post {
-        archiveArtifacts artifacts: '', fingerprint: true	
-      }
+	  stage('archive') {
+                sh 'make' 
+                archiveArtifacts artifacts: '**/', fingerprint: true 
+        }
+      
 	
 	}	
 	
