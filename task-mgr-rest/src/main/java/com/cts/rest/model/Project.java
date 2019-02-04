@@ -1,6 +1,6 @@
 package com.cts.rest.model;
 
-import java.io.Serializable;
+//import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -12,8 +12,9 @@ import javax.persistence.Table;
 
 @Entity()
 @Table(name="project")
-public class Project implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Project {
+//  implements Serializable {
+//	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.rest.model.Project;
@@ -39,7 +40,7 @@ public class TaskManagerController {
 			User user1 =taskManagerService.saveUser(user);
 			response= new Responce<String>(user1.getUserId(),"Success","0");
 		}catch(Exception e) {
-			 LOGGER.error("Exception while persisting User data : "+e.toString());
+			 LOGGER.error("Exception while persisting User data : ",e);
 			 response= new Responce<String>(null,"Failure","1");
 			 response.setErrMsg(e.getMessage());
 		}	
@@ -47,6 +48,7 @@ public class TaskManagerController {
 		return response;
 	}
 	
+
 	@RequestMapping(path = "/saveOrUpdateProject",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
 	public Responce<Integer> saveOrUpdateProject(@RequestBody Project project) {
 		LOGGER.info("saveOrUpdateProject Start");
@@ -92,6 +94,38 @@ public class TaskManagerController {
 			 response.setErrMsg(e.getMessage());
 		}	
 		LOGGER.info("findProjectsByName End");
+		return response;
+	}
+
+	@RequestMapping(path = "/getUsers",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public Responce<List<User>> getUsers(){
+		LOGGER.info("getUsers Start");
+		Responce<List<User>> response;
+		try {
+			List<User> users =taskManagerService.getUsers();
+			response= new Responce<>(users,"Success","0");
+		}catch(Exception e) {
+			 LOGGER.error("Exception while fetching User data : ",e);
+			 response= new Responce<>(null,"Failure","1");
+			 response.setErrMsg(e.getMessage());
+		}	
+		LOGGER.info("getUsers End");
+		return response;
+	}
+	
+	@RequestMapping(path = "/findUsersByName",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)	
+	public Responce<List<User>> findUsersByName(@RequestParam("name") String name){
+		LOGGER.info("findUsersByName Start");
+		Responce<List<User>> response;
+		try {
+			List<User> users =taskManagerService.findUsersByName(name);
+			response= new Responce<>(users,"Success","0");
+		}catch(Exception e) {
+			 LOGGER.error("Exception while fetching user by name : ",e);
+			 response= new Responce<>(null,"Failure","1");
+			 response.setErrMsg(e.getMessage());
+		}	
+		LOGGER.info("findUsersByName End");
 		return response;
 	}
 }

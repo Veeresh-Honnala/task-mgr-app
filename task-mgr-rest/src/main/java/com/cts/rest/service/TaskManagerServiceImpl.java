@@ -1,7 +1,5 @@
 package com.cts.rest.service;
 
-
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,22 +15,33 @@ import com.cts.rest.repositories.ProjectRepository;
 //import com.cts.rest.repositories.TaskRepository;
 import com.cts.rest.repositories.UserRepository;
 
-public class TaskManagerServiceImpl implements TaskManagerService{
+public class TaskManagerServiceImpl implements TaskManagerService {
 	public static final Logger LOGGER = LoggerFactory.getLogger(TaskManagerService.class);
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private ProjectRepository projectRepository;
 
 	@Override
 	public User saveUser(User user) throws DataAccessException {
 		LOGGER.info("saveUser Start");
-	    User returnUser	=userRepository.save(user);
-	    LOGGER.info("saveUser End");
+		User returnUser = userRepository.save(user);
+		LOGGER.info("saveUser End");
 		return returnUser;
 	}
+	
+	public List<User> getUsers() throws DataAccessException {
+		List<User> users = userRepository.findAll();
+		return users;
+	}
+
+	@Override
+	public List<User> findUsersByName(String name) throws DataAccessException {
+		return userRepository.findByName(name);
+	}
+
 
 	@Override
 	public Project saveProject(Project project) throws DataAccessException {
@@ -48,8 +57,6 @@ public class TaskManagerServiceImpl implements TaskManagerService{
 	public List<Project> findProjectsByName(String projectName) throws DataAccessException {
 		return projectRepository.findProjectsByName(projectName);
 	}
+
 	
-
-
-
 }
