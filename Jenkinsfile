@@ -4,6 +4,7 @@
 try{
    
 	node('master') {
+	
    	  stage ('Checkout'){
 	       echo "check out start"
 		   checkout scm
