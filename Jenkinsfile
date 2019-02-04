@@ -4,26 +4,29 @@
 try{
    
 	node('master') {
-	  stage ('Checkout'){
+   	  stage ('Checkout'){
 	       echo "check out start"
 		   checkout scm
 	       echo "check out end"
 	     }
+	
 	  stage('Clean Test'){
 	   	  echo "clean test start"
 	   	  sh 'mvn clean test -Pdev'		
 	   	  echo "clean test end"
 	   	  }
+	  
+	  stage('archive') {
+                archiveArtifacts artifacts: '**/target/**', fingerprint: true 
+        }
+	   	  
 	  stage('Clean Package'){
 	   	  echo "clean package start"
 	   	  sh 'mvn clean package -Dspring.profiles.active=docker -Dmaven.test.skip'		
 	   	  echo "clean package end"
 	   	  }
 	    	
-	  stage('archive') {
-                
-                archiveArtifacts artifacts: '**/target/**', fingerprint: true 
-        }
+	  
       
 	
 	}	
