@@ -43,6 +43,9 @@ public class TaskManagerServiceImplTest {
 	@MockBean
 	List<Project> projects; 
 	
+	@MockBean
+	List<User> users;
+	
 	@Test
 	public void testSaveUser() {
 		Mockito.when(userRepository.save(user)).thenReturn(user);
@@ -50,6 +53,17 @@ public class TaskManagerServiceImplTest {
 		assertEquals(user, user1);
 	}
 
+	@Test
+	public void testGetUsers() {
+		Mockito.when(userRepository.findAll()).thenReturn(users);
+		assertEquals(users, taskManagerServiceImpl.getUsers());
+	}
+
+	@Test
+	public void testFindUsersByName() {
+		Mockito.when(userRepository.findByName(Mockito.anyString())).thenReturn(users);
+		assertEquals(users, taskManagerServiceImpl.findUsersByName("Veeresh"));
+	}
 	
 	@Test
 	public void testSaveProject() {
@@ -63,6 +77,7 @@ public class TaskManagerServiceImplTest {
 		Mockito.when(projectRepository.save(Mockito.any(Project.class))).thenThrow(SQLIntegrityConstraintViolationException.class);
 		taskManagerServiceImpl.saveProject(project);
 	}
+	
 	
 	@Test
 	public void testGetProjects() {

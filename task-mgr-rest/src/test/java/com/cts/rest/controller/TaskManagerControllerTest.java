@@ -32,6 +32,9 @@ public class TaskManagerControllerTest {
 	@MockBean
 	List<Project> projects;
 	
+	@MockBean
+	List<User> users;
+	
 	@Test
 	public void testPing() {
 		assertEquals("ping","Success", taskManagerController.ping().getStatus());
@@ -50,6 +53,33 @@ public class TaskManagerControllerTest {
 		User usr = new User();
 		Mockito.when(taskManagerService.saveUser(Mockito.any())).thenThrow(NullPointerException.class);
 		assertEquals("testSaveOrUpdateUser","1",taskManagerController.saveOrUpdateUser(usr).getErrCode());
+	}
+
+	
+	
+	@Test
+	public void testGetUsers() {
+		Mockito.when(taskManagerService.getUsers()).thenReturn(users);
+		assertEquals("testSaveOrUpdateProject","0",taskManagerController.getUsers().getErrCode());
+	}
+	
+
+	@Test
+	public void testGetUsersWithException() {
+		Mockito.when(taskManagerService.getUsers()).thenThrow(NullPointerException.class);
+		assertEquals("testSaveOrUpdateProject","1",taskManagerController.getUsers().getErrCode());
+	}
+
+	@Test
+	public void testFindUsersByName() {
+		Mockito.when(taskManagerService.findUsersByName(Mockito.anyString())).thenReturn(users);
+		assertEquals("testSaveOrUpdateProject","0",taskManagerController.findUsersByName("Veeresh").getErrCode());
+	}
+	
+	@Test
+	public void testFindUsersByNameWithException() {
+		Mockito.when(taskManagerService.findUsersByName(Mockito.anyString())).thenThrow(NullPointerException.class);
+		assertEquals("testSaveOrUpdateProject","1",taskManagerController.findUsersByName("Veeresh").getErrCode());
 	}
 
 	@Test

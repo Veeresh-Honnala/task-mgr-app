@@ -33,8 +33,7 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 	}
 	
 	public List<User> getUsers() throws DataAccessException {
-		List<User> users = userRepository.findAll();
-		return users;
+		return userRepository.findAll();
 	}
 
 	@Override
