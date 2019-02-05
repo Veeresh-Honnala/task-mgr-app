@@ -1,59 +1,99 @@
-<form class="needs-validation"  #addForm novalidate>
-    <div class="form-group required row">
-        <label for="project" class="col-sm-2 col-form-label required1">Project:</label>
-        <div class="col-sm-6">
-          <input type="text" name="project" class="form-control" id="project"  required>
-          <div class="invalid-feedback">Project is mandatory field</div>
+<div id="add">
+  <form #addForm="ngForm">
+
+    <div class="form-group  required row">
+      <label for="project" class="col-sm-2 col-form-label required1">Project :</label>
+      <div class="col-sm-6">
+        <input id="project" name="project" type="text" class="form-control" [class.is-invalid]="searchFailed"
+          [(ngModel)]="task.project.project" [ngbTypeahead]="searchProjects" placeholder="project type-ahead search"
+          #project="ngModel" required />
+        <span *ngIf="searching">searching...</span>
+        <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+        <div [hidden]="project.valid || project.pristine" class="alert alert-danger">
+          Project is Required
         </div>
       </div>
-  <div class="form-group required row">
-    <label for="taskName" class="col-sm-2 col-form-label required1">Task:</label>
-    <div class="col-sm-6">
-      <input type="text" name="taskName" class="form-control" id="taskName" [(ngModel)]="task.taskName" required>
-      <div class="invalid-feedback">Task is mandatory field</div>
     </div>
-  </div>
 
-  <div class="form-group required row">
-    <label for="priority" class="col-sm-2 col-form-label required">Priority:</label>
-    <div class="col-sm-6">
-      <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
-      <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">30</span>
-      <input type="range"  name="priority"  min="0" max="30" class="custom-range" [(ngModel)]="task.priority" >
+    <div class="form-group required row">
+      <label for="taskName" class="col-sm-2 col-form-label required1">Task:</label>
+      <div class="col-sm-6">
+        <input type="text" name="taskName" class="form-control" id="taskName" [(ngModel)]="task.taskName" #taskName="ngModel"
+          required>
+        <div [hidden]="taskName.valid || taskName.pristine" class="alert alert-danger">
+          Task Name is Required
+        </div>
+      </div>
     </div>
-    <div class="invalid-feedback">Priority is mandatory field</div>
-  </div>
 
-  <div class="form-group row">
-    <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
-    <div class="col-sm-6">
-      <input type="text" name="parentTask"  class="form-control" id="parentTask" [(ngModel)]="task.parentTask.parentTask">
+    <div class="form-group required row">
+      <div class="col-sm-2"></div>
+      <div class="checkbox col-sm-6">
+        <label><input type="checkbox" id="isParent" name ="isParent" (click)="disableParent()" [(ngModel)]="task.isParent" value=true >Parent Task</label>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group required row">
-    <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
-    <div class="col-sm-6">
-      <input type="text"  name="startDate" class="form-control" placeholder="DD/MM/YYYY" id="startDate" [(ngModel)]="task.startDate" >
+    <div class="form-group required row">
+      <label for="priority" class="col-sm-2 col-form-label required">Priority:</label>
+      <div class="col-sm-6">
+        <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+        <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">30</span>
+        <input type="range" name="priority" min="0" max="30" [disabled]="disableForParent" class="custom-range" [(ngModel)]="task.priority">
+      </div>
     </div>
-  </div>
 
-  <div class="form-group required row">
-    <label for="endDate" class="col-sm-2 col-form-label">End Date:</label>
-    <div class="col-sm-6">
-      <input type="text"  name="endDate" class="form-control" placeholder="DD/MM/YYYY" id="endDate" [(ngModel)]="task.endDate" required>
+    <div class="form-group row">
+      <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
+      <div class="col-sm-6">
+        <input type="text" name="parentTask" class="form-control" id="parentTask" [disabled]="disableForParent" [(ngModel)]="task.parentTask.parentTask"
+          [ngbTypeahead]="searchParentTasks" [class.is-invalid]="searchFailed">
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="col-sm-3"></div>
-    <button type="button" id="add" class="btn" [disabled]="(task.taskName==null ||task.taskName=='' || task.startDate==null|| task.startDate==''|| task.endDate==null|| task.endDate=='')" style="margin:10px" (click)="saveOrUpdateTask()">Add Task</button>
-    <button type="button" id="reset" class="btn" style="margin:10px" (click)="reset()">Reset</button>
-    <div class="col-sm-2"></div>
-  </div>
-  
-  <!-- <div *ngIf="alert.msg">
+    <div class="form-group required row">
+      <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
+      <div class="col-sm-2">
+        <input type="date" name="startDate" class="form-control" placeholder="DD/MM/YYYY" id="startDate" [disabled]="disableForParent" [(ngModel)]="task.startDate"
+          #startDate="ngModel" required>
+        <div [hidden]="startDate.valid || startDate.pristine" class="alert alert-danger">
+          Start Date is Required
+        </div>
+      </div>
+
+      <label for="endDate" class="col-sm-2 col-form-label">End Date:</label>
+      <div class="col-sm-2">
+        <input type="date" name="endDate" class="form-control" placeholder="DD/MM/YYYY" id="endDate" [disabled]="disableForParent" [(ngModel)]="task.endDate"
+          #endDate="ngModel" required>
+        <div [hidden]="endDate.valid || endDate.pristine" class="alert alert-danger">
+          End Date is Required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group  required row">
+      <label for="user" class="col-sm-2 col-form-label required1">User :</label>
+      <div class="col-sm-6">
+        <input id="user" name="user" type="text" class="form-control" [disabled]="disableForParent" [class.is-invalid]="searchFailed" [ngbTypeahead]="searchUsers"
+          placeholder="user type-ahead search" [(ngModel)]="task.user.fullName" #user="ngModel" required />
+        <span *ngIf="searching">searching...</span>
+        <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+        <div [hidden]="user.valid || user.pristine" class="alert alert-danger">
+          User is Required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-3"></div>
+      <button type="button" id="add" class="btn  btn-info" [disabled]="!addForm.form.valid" style="margin:10px">Add
+        Task</button>
+      <button type="button" id="reset" class="btn  btn-info" style="margin:10px" (click)="addForm.reset()">Reset</button>
+      <div class="col-sm-2"></div>
+    </div>
+
+    <!-- <div *ngIf="alert.msg">
       <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
    </div> -->
-  
-</form>
+   {{task.startDate}}
+  </form>
+</div>

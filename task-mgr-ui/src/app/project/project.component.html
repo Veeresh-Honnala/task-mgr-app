@@ -1,3 +1,115 @@
-<p>
-  project works!
-</p>
+<div id="add-project">
+  <form #addProject="ngForm">
+    <div class="form-group required row">
+      <label for="project" class="col-sm-3 col-form-label required1">Project:</label>
+      <div class="col-sm-6">
+        <input type="text" name="project" class="form-control" id="project" [(ngModel)]="projectModel.project" #project="ngModel"
+          required>
+        <div [hidden]="project.valid || project.pristine" class="alert alert-danger">
+          Task Name is Required
+        </div>
+      </div>
+    </div>
+    <div class="form-group required row">
+      <div class="checkbox col-sm-3">
+        <label><input type="checkbox" id="hasDates" name="hasDates" (click)="disableDates()" [(ngModel)]="projectModel.hasDates"
+            value=true>Set Start and End Date </label>
+      </div>
+      <div class="col-sm-3">
+        <input type="date" name="startDate" class="form-control" placeholder="DD/MM/YYYY" id="startDate" [disabled]="!projectModel.hasDates"
+          [(ngModel)]="projectModel.startDate" #startDate="ngModel">
+        <!-- <div [hidden]="!projectModel.hasDates && (startDate.valid || startDate.pristine)" class="alert alert-danger">
+          Start Date is Required
+        </div> -->
+      </div>
+      <div class="col-sm-3">
+        <input type="date" name="endDate" class="form-control" placeholder="DD/MM/YYYY" id="endDate" [disabled]="!projectModel.hasDates"
+          [(ngModel)]="projectModel.endDate" #endDate="ngModel">
+        <!-- <div [hidden]="(endDate.valid || endDate.pristine)" class="alert alert-danger">
+          End Date is Required
+        </div> -->
+      </div>
+    </div>
+    <div class="form-group required row">
+      <label for="priority" class="col-sm-3 col-form-label required">Priority:</label>
+      <div class="col-sm-6">
+        <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+        <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">30</span>
+        <input type="range" name="priority" min="0" max="30" class="custom-range" [(ngModel)]="projectModel.priority">
+      </div>
+    </div>
+
+    <div class="form-group  required row">
+      <label for="user" class="col-sm-3 col-form-label required1">User :</label>
+      <div class="col-sm-6">
+        <input id="manager" name="manager" type="text" class="form-control" [disabled]="disableForParent"
+          [class.is-invalid]="searchFailed" [ngbTypeahead]="searchUsers" placeholder="user type-ahead search"
+          [(ngModel)]="projectModel.manager" #manager="ngModel" required />
+        <span *ngIf="searching">searching...</span>
+        <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+        <div [hidden]="manager.valid || manager.pristine" class="alert alert-danger">
+          Manager is Required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-3"></div>
+      <div *ngIf="!updateProj">
+        <button type="button" id="add" class="btn  btn-info" [disabled]="!addProject.form.valid" style="margin:10px"
+          (click)="saveProject()">Add</button>
+      </div>
+      <div *ngIf="updateProj">
+        <button type="button" id="add" class="btn  btn-info" [disabled]="!addProject.form.valid" style="margin:10px"
+          (click)="update()">Update</button>
+      </div>
+      <button type="button" id="reset" class="btn  btn-info" style="margin:10px" (click)="addProject.reset()">Reset</button>
+      <div class="col-sm-2"></div>
+    </div>
+  </form>
+</div>
+<hr size="pixels" class="line" />
+<div id="view-projects">
+  <div class="list-group col-sm-10" *ngFor="let p of projectModels;let i=index;">
+    <div class="list-group-item">
+      <div class="row">
+        <div class="col-sm-6" style="background-color: #a9a9a92e;margin-right:5px; ">
+          <!-- <div class="card-body"> -->
+          <br />
+          <div class="list-group-item-header">
+            <div>Project : {{p.project}}</div>
+          </div>
+          <br />
+          <div class="list-group-item-text row">
+            <div class="col-sm-6"> No of Tasks: 10</div>
+            <div class="col-sm-6"> Completed: 20</div>
+          </div>
+          <div class="list-group-item-text row">
+            <div class="col-sm-6"> Start Date:{{p.startDate}}</div>
+            <div class="col-sm-6"> End Date:{{p.endDate}}</div>
+          </div>
+          <!-- </div> -->
+        </div>
+
+        <div class="col-sm-3" style="background-color: #a9a9a92e;margin-right:5px;">
+          <div class="list-group-item-header">
+            <br />
+            <div>Priority</div>
+          </div>
+          <div>{{p.priority}}</div>
+        </div>
+        <div class="col-sm-2" style="background-color: #a9a9a92e">
+          <!-- <div class="card-body"> -->
+          <br />
+          <div class="form-group col-md-1">
+            <button type="button" class="btn1" (click)="updateProject(i)">Update</button>
+          </div>
+          <div class="form-group col-md-1">
+            <button type="button" class="btn2" (click)="suspendProject(i)">Suspend</button>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
