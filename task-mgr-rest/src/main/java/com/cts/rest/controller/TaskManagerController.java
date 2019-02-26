@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.rest.model.Project;
 import com.cts.rest.model.Responce;
+import com.cts.rest.model.Task;
 import com.cts.rest.model.User;
 import com.cts.rest.service.TaskManagerService;
 
@@ -114,11 +115,11 @@ public class TaskManagerController {
 	}
 	
 	@RequestMapping(path = "/findProjectsByName",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public Responce<List<Project>> findProjectsByName() {
+	public Responce<List<Project>> findProjectsByName(@RequestParam("projectName") String projectName) {
 		LOGGER.info("findProjectsByName Start");
 		Responce<List<Project>> response;
 		try {
-			List<Project> projects =taskManagerService.getProjects();
+			List<Project> projects =taskManagerService.findProjectsByName(projectName);
 			response= new Responce<>(projects,"Success","0");
 		}catch(Exception e) {
 			 LOGGER.error("Exception while fetching Project data : ",e);
@@ -129,4 +130,20 @@ public class TaskManagerController {
 		return response;
 	}
 
+	@RequestMapping(path = "/saveOrUpdateTask",method=RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public Responce<Integer> saveOrUpdateTask(@RequestBody Task task) {
+		LOGGER.info("saveOrUpdateTask Start");
+		Responce<Integer> response;
+		try {
+			Task task1 =taskManagerService.saveTask(task);
+			response= new Responce<>(task1.getTaskId(),"Success","0");
+		}catch(Exception e) {
+			 LOGGER.error("Exception while persisting Task data : ",e);
+			 response= new Responce<>(null,"Failure","1");
+			 response.setErrMsg(e.getMessage());
+		}	
+		LOGGER.info("saveOrUpdateTask End");
+		return response;
+	}
+	
 }

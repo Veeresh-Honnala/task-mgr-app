@@ -14,9 +14,10 @@ export class ViewTaskProjectPipe implements PipeTransform {
           return taskLists.sort((a,b)=>parseInt(a.priority)-parseInt(b.priority));
           break;
         case 'startDate':
-          return taskLists.sort((a, b) => a.startDate.localeCompare(b.startDate));
+      
+          return taskLists.sort((a, b) => a.startDate>b.startDate ? -1 : a.startDate<b.startDate ? 1 : 0);
         case 'endDate':
-          return taskLists.sort((a, b) => a.endDate.localeCompare(b.endDate)).reverse();
+          return taskLists.sort((a, b) => a.endDate>b.endDate ? -1 : a.endDate<b.endDate ? 1 : 0).reverse();
           break;
         case 'completed':
           return taskLists.sort((a, b) => a.editEnabled.localeCompare(b.editEnabled));

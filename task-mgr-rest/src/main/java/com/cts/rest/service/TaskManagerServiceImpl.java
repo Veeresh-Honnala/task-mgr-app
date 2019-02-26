@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 import com.cts.rest.model.Project;
+import com.cts.rest.model.Task;
 //import com.cts.rest.model.ParentTask;
 import com.cts.rest.model.User;
 import com.cts.rest.repositories.ProjectRepository;
+import com.cts.rest.repositories.TaskRepository;
 //import com.cts.rest.repositories.ParentTaskRepository;
 //import com.cts.rest.repositories.TaskRepository;
 import com.cts.rest.repositories.UserRepository;
@@ -23,6 +25,9 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 
 	@Autowired
 	private ProjectRepository projectRepository;
+	
+	@Autowired
+	private TaskRepository taskRepository;
 
 	@Override
 	public User saveUser(User user) throws DataAccessException {
@@ -55,6 +60,11 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 	@Override
 	public List<Project> findProjectsByName(String projectName) throws DataAccessException {
 		return projectRepository.findProjectsByName(projectName);
+	}
+
+	@Override
+	public Task saveTask(Task task) throws DataAccessException {
+		return taskRepository.save(task);
 	}
 
 	

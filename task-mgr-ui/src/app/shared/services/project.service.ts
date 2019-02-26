@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { TaskManagerConstants } from '../constants/taskmanager.constants';
 import { ResponseModel } from '../model/response.model';
 import { ProjectModel } from '../model/project.model';
@@ -23,14 +23,21 @@ export class ProjectService {
     if (term === '') {
       return of([]);
     }
-    if (TaskManagerConstants.RUN_WITH_MOCK == true) {
+    if (TaskManagerConstants.RUN_WITH_MOCK) {
       return this.httpClient.get(TaskManagerConstants.GET_PROJECTS_MOCK).pipe(
         map((res: ResponseModel<ProjectModel[]>) => {
           return res.outData.map(p => p['project'] + '-' + p['projectId']);
         })
       );
     } else {
-      return null;
+      // let params = new HttpParams().set('projectName',term);
+      let projUrl=TaskManagerConstants.FIND_PROJECTS_BY_NAME+'?projectName='+term;
+      console.log('projectName',name);
+      return this.httpClient.post(projUrl, null, httpOptions).pipe(
+        map((res: ResponseModel<ProjectModel[]>) => {
+          return res.outData.map(p => p['project'] + '-' + p['projectId']);
+        })
+      );
     }
   }
 

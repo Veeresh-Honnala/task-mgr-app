@@ -40,6 +40,7 @@ create table task(
    task_id INT NOT NULL AUTO_INCREMENT,
    parent_id INT,
    project_id INT,
+   user_id INT,
    task_name VARCHAR(100) NOT NULL,
    priority VARCHAR(100) NOT NULL,
    edit_enabled VARCHAR(1), 

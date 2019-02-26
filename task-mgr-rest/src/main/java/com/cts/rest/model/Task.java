@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "TASK")
 public class Task implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	@Column(name = "task_id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,26 +31,35 @@ public class Task implements Serializable {
 	@Column(name = "task_name")
 	private String taskName;
 
+	@Column(name = "priority")
 	private String priority;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(name = "parent_id", nullable = true)
 //	@JsonBackReference
-	private ParentTask parentTask;
+	private Task parentTask;
 
 	@Column(name = "start_Date")
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@JsonFormat(pattern = "dd/MM/yyyy")
+//	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate startDate;
 
 	@Column(name = "end_date")
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@JsonFormat(pattern = "dd/MM/yyyy")
+//	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate endDate;
 
 	@Column(name = "edit_enabled")
 	private String editEnabled;
-
+	
+	@ManyToOne(fetch=FetchType.LAZY,optional=true)
+	@JoinColumn(name="user_id",nullable=true)
+	private User user;
+	
+	@ManyToOne(fetch=FetchType.LAZY,optional=true)
+	@JoinColumn(name="project_id",nullable=true)
+	private Project project;
+	
 	public Integer getTaskId() {
 		return taskId;
 	}
@@ -73,14 +84,7 @@ public class Task implements Serializable {
 		this.priority = priority;
 	}
 
-	public ParentTask getParentTask() {
-		return parentTask;
-	}
-
-	public void setParentTask(ParentTask parentTask) {
-		this.parentTask = parentTask;
-	}
-
+	
 	public LocalDate getStartDate() {
 		return startDate;
 	}
@@ -105,4 +109,30 @@ public class Task implements Serializable {
 		this.editEnabled = editEnabled;
 	}
 
+	public Task getParentTask() {
+		return parentTask;
+	}
+
+	public void setParentTask(Task parentTask) {
+		this.parentTask = parentTask;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	
+	
 }

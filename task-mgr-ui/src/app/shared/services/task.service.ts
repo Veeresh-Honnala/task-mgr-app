@@ -33,8 +33,10 @@ export class TaskService {
           return res.outData.map(u => u['parentTask'] + '-' + u['parentId']);
         }));
     } else {
-      // TaskManagerConstants.SEARCH_USERS
-      return null;
+      return this.httpClient.get(TaskManagerConstants.SEARCH_PARENT_TASK_MOCK).pipe(
+        map((res: ResponseModel<ParentTaskModel[]>) => {
+          return res.outData.map(u => u['parentTask'] + '-' + u['parentId']);
+        }));
     }
   }
 
@@ -45,10 +47,15 @@ export class TaskService {
       res.status = 'Success';
       return of(res);
     } else {
+      if (task.project.project)
        task.parentTask.parentId = task.project.project.split('-')[1];
-      if (!task.parentTask.parentTask)
+
+      if (task.user.fullName)
+       task.user.userId= task.user.fullName.split('-')[1];
+
+      if (task.parentTask.parentTask)
         task.parentTask.parentId = task.parentTask.parentTask.split('-')[1];
-      task.parentTask.parentId = task.user.fullName.split('-')[1];
+      
       return this.httpClient.post(TaskManagerConstants.SAVE_TASK, task, httpOptions).pipe(
         tap((res: ResponseModel<String>) => res),
         catchError(this.userService.handleError<ResponseModel<String>>('saveOrUpdateTask')));
@@ -71,6 +78,7 @@ export class TaskService {
     let pr=project.project.split('-');
     project.project=pr[0];
     project.projectId=parseInt(pr[1]);
+
     if (TaskManagerConstants.RUN_WITH_MOCK) {
       return this.httpClient.get(TaskManagerConstants.GET_TASKS_MOCK).pipe(
         tap((res: ResponseModel<TaskModel[]>) => console.log(`added task w/ id=${res.status}`)),

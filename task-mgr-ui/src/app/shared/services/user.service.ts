@@ -52,8 +52,11 @@ export class UserService {
           return res.outData.map(u => u['firstName'] + ' ' + u['lastName'] + '-'+u['userId']);
         }));
     } else {
-      // TaskManagerConstants.SEARCH_USERS
-      return null;
+      let  userUrl:string =TaskManagerConstants.SEARCH_USERS+'?name='+term;
+      return this.httpClient.post<ResponseModel<UserModel[]>>(userUrl,null, httpOptions).pipe(
+        map((res: ResponseModel<UserModel[]>) => {
+          return res.outData.map(u => u['firstName'] + ' ' + u['lastName'] + '-'+u['userId']);
+        }));
     }
   }
 

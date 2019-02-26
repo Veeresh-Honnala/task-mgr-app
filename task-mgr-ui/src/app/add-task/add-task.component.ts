@@ -32,7 +32,13 @@ export class AddTaskComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+  public saveOrUpdateTask(){
+    this.taskService.saveOrUpdateTask(this.task).subscribe(
+      (res)=>{
+        console.log(res);
+      }
+    )
+  }
   searchProjects = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(300),

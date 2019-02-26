@@ -85,7 +85,7 @@
 
     <div class="form-group row">
       <div class="col-sm-3"></div>
-      <button type="button" id="add" class="btn  btn-info" [disabled]="!addForm.form.valid" style="margin:10px">Add
+      <button type="button" id="add" class="btn  btn-info" [disabled]="!addForm.form.valid" style="margin:10px" (click)="saveOrUpdateTask()">Add
         Task</button>
       <button type="button" id="reset" class="btn  btn-info" style="margin:10px" (click)="addForm.reset()">Reset</button>
       <div class="col-sm-2"></div>

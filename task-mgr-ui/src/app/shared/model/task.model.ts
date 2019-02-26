@@ -8,8 +8,8 @@ export class TaskModel{
     taskName:string;
     priority:string;
     parentTask:ParentTaskModel;
-    startDate:string;
-    endDate:string;
+    startDate:Date;
+    endDate:Date;
     user:UserModel;
     isParent:boolean;
     editEnabled:string;

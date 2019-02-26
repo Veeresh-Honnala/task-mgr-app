@@ -74,5 +74,4 @@ public class User {
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
 	}
-
 }
